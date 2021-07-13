@@ -5,19 +5,26 @@ from sieve import *
 boundaries = []
 durations = []
 
-for i in range(int(argv[1]) - 2):
-    start_time = datetime.now()
+test_time = datetime.now()
 
-    #print(start_time)
+for i in possible_primes(int(argv[1]) - 2):
+    duration_mean = 0
 
-    generate_primes(i + 3)
+    for j in range(10):
+        start_time = datetime.now()
 
-    #print(datetime.now())
+        generate_primes(i + 3)
+
+        duration_mean += (datetime.now() - start_time).microseconds
+
 
     boundaries.append(i + 3)
-    durations.append((datetime.now() - start_time).microseconds)
+    durations.append(duration_mean/10)
 
-    #print(datetime.now() - start_time)
+    #print(len(durations), len(possible_primes(int(argv[1]) - 2)))
+
+
+print(datetime.now() - test_time)
 
 plt.scatter(boundaries, durations, label='aaaaa', color='r')
 plt.show()
